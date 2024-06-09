@@ -1,10 +1,35 @@
 import React from "react";
+import { Table } from 'react-bootstrap';
 
-const Listado = ({collaboratorList}) => {
+const Listado = ({ colaboradores }) => {
     return (
-        <>
-        <div className="col col-12 col-md-9">
-          <table className="table">
+      <>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Edad</th>
+              <th>Cargo</th>
+              <th>Telefono</th>
+            </tr>
+          </thead>
+          <tbody>
+            {colaboradores.map(colaborador => (
+              <tr key={colaborador.id}>
+                <td>{colaborador.id}</td>
+                <td>{colaborador.nombre}</td>
+                <td>{colaborador.correo}</td>
+                <td>{colaborador.edad}</td>
+                <td>{colaborador.cargo}</td>
+                <td>{colaborador.telefono}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        {/* <div className="col col-12 col-md-9">
+          <table class="table">
             <thead>
               <tr>
                 <th scope="col">Nombre</th>
@@ -28,7 +53,7 @@ const Listado = ({collaboratorList}) => {
               )}
             </tbody>
           </table>
-        </div>
+        </div> */}
         </>
     )
 }

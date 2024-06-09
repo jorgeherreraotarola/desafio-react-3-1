@@ -1,61 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 
-import Alert from "./Alert";
-// import {BaseColaboradores} from '../BaseColaboradores'
+const Formulario = ({ agregarColaborador }) => {
+  const [nombre, setNombre] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [edad, setEdad] = useState('');
+  const [cargo, setCargo] = useState('');
+  const [telefono, setTelefono] = useState('');
 
-const Formulario = ({addColaborador}) => {
-  const [collaboratorName , setCollaboratorName] = useState("")
-  const [collaboratorEmail, setCollaboratorEmail] = useState("")
-  const [collaboratorAge, setCollaboratorAge] = useState("")
-  const [collaboratorPosition, setCollaboratorPosition] = useState("")
-  const [collaboratorPhone, setCollaboratorPhone] = useState("")
-
-  const [alertCollaboratorName, setAlertCollaboratorName] = useState("")
-
-  // const [collaboratorList, setCollaboratorList] = useState(BaseColaboradores)
-  const completeInput = false
-  const getCollaboratorName =(e) => {
-    if(e.target.value !== ''){
-      setCollaboratorName(e.target.value)
-    }else{
-      setAlertCollaboratorName("No puedes crear un colaborador sin nombre");
+  const manejarSubmit = (e) => {
+    e.preventDefault();
+    if (nombre && correo && edad && cargo && telefono) {
+      agregarColaborador({ nombre, correo, edad, cargo, telefono });
+      setNombre('');
+      setCorreo('');
+      setEdad('');
+      setCargo('');
+      setTelefono('');
+    } else {
+      alert('Todos los campos son obligatorios');
     }
-  }
-  const getCollaboratorEmail = (e) => {
-    setCollaboratorEmail(e.target.value)
-  }
-  const getCollaboratorAge = (e) => {
-    setCollaboratorAge (e.target.value)
-  }
-  const getCollaboratorPosition = (e) => {
-    setCollaboratorPosition(e.target.value)
-  }
-  const getCollaboratorPhone = (e) => {
-    setCollaboratorPhone(e.target.value)
-  }
-  const addCollaborator = (e) => {
-    e.preventDefault()
-    addColaborador({
-      id: "xx-xx",
-      nombre: collaboratorName,
-      correo: collaboratorEmail,
-      edad: collaboratorAge,
-      cargo: collaboratorPosition,
-      telefono: collaboratorPhone
-    })
-  }
+  };
+
     return (
         <>
-        <div className="col col-12 col-md-3 ms-1"> 
+        <div className="col col-12 col-md-3 ms-1">
           <h5>Agregar Colaborador</h5>
-          <form onSubmit={addCollaborator}>
+          <form onSubmit={manejarSubmit}>
             <div className="mb-3">
               <input
                 type="text"
                 className="form-control"
                 id="collaboratorName"
                 placeholder="Nombre del colaborador"
-                onChange={getCollaboratorName}
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
               />
               {alertCollaboratorName && <Alert message={alertCollaboratorName} type="danger" />}
             </div>
@@ -65,16 +44,18 @@ const Formulario = ({addColaborador}) => {
                 className="form-control"
                 id="collaboratorEmail"
                 placeholder="tuemail@ejemplo.com"
-                onChange={getCollaboratorEmail}
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
               />
             </div>
             <div className="mb-3">
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="collaboratorAge"
                 placeholder="Edad del colaborador"
-                onChange={getCollaboratorAge}
+                value={edad}
+                onChange={(e) => setEdad(e.target.value)}
               />
             </div>
             <div className="mb-3">
@@ -83,7 +64,8 @@ const Formulario = ({addColaborador}) => {
                 className="form-control"
                 id="collaboratorPosition"
                 placeholder="Cargo del colaborador"
-                onChange={getCollaboratorPosition}
+                value={cargo}
+                onChange={(e) => setCargo(e.target.value)}
               />
             </div>
             <div className="mb-3">
@@ -92,7 +74,8 @@ const Formulario = ({addColaborador}) => {
                 className="form-control"
                 id="collaboratorPhone"
                 placeholder="Telefono del colaborador"
-                onChange={getCollaboratorPhone}
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
               />
             </div>
             <button type="submit" className="btn btn-primary form-control">
